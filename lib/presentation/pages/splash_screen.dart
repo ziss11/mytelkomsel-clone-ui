@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mytelkomsel_clone_ui/presentation/pages/main_page.dart';
+import 'package:mytelkomsel_clone_ui/presentation/pages/login_page.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Future.delayed(
       const Duration(seconds: 3),
-      () => context.goNamed(MainPage.routeName),
+      () => context.goNamed(LoginPage.routeName),
     );
   }
 

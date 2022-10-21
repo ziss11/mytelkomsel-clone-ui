@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: AppColors.lightColorScheme,
         useMaterial3: true,
-        textTheme: myTextTheme,
+        textTheme: typography,
       ),
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,
