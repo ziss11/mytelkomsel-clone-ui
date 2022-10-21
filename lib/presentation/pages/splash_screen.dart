@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/main_page.dart';
+import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   static const route = "/splash";
@@ -25,10 +26,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      backgroundColor: AppColors.red,
       body: Center(
-        child: Text(
-          "This is splash screen",
+        child: Image.asset(
+          "images/logo.png",
         ),
       ),
     );

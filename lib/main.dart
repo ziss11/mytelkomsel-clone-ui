@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 import 'package:mytelkomsel_clone_ui/utilities/router.dart';
+import 'package:mytelkomsel_clone_ui/utilities/typography.dart';
 
 void main() => runApp(const MyApp());
 
@@ -11,7 +13,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        colorScheme: AppColors.lightColorScheme,
         useMaterial3: true,
+        textTheme: myTextTheme,
       ),
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,
