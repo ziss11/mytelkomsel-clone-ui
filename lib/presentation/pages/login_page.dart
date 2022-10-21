@@ -147,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                       icon: AssetImage(
                         "images/ic_facebook.png",
                       ),
-                      borderColor: AppColors.fbBlue,
+                      color: AppColors.fbBlue,
                     ),
                   ),
                   SizedBox(
@@ -159,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                       icon: AssetImage(
                         "images/ic_twitter.png",
                       ),
-                      borderColor: AppColors.fbBlue,
+                      color: AppColors.twitterBlue,
                     ),
                   ),
                 ],

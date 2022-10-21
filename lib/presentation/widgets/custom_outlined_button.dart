@@ -4,43 +4,44 @@ import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 class CustomOutlinedButton extends StatelessWidget {
   final String text;
   final AssetImage icon;
-  final Color borderColor;
+  final Color color;
 
   const CustomOutlinedButton({
     super.key,
     required this.text,
     required this.icon,
-    this.borderColor = AppColors.black,
+    this.color = AppColors.black,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: OutlinedButton(
+      child: TextButton(
         style: OutlinedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4),
           ),
           side: BorderSide(
-            color: borderColor,
+            color: color,
             width: 1.5,
           ),
         ),
         onPressed: () {},
-        child: Center(
-          child: Row(
-            children: [
-              ImageIcon(
-                icon,
-                color: borderColor,
-              ),
-              Text(
-                text,
-                style: Theme.of(context).textTheme.button,
-              ),
-            ],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ImageIcon(
+              icon,
+              color: color,
+            ),
+            Text(
+              text,
+              style: Theme.of(context).textTheme.button?.copyWith(
+                    color: color,
+                  ),
+            ),
+          ],
         ),
       ),
     );
