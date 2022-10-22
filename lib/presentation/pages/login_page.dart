@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 24,
                 ),
                 FilledButton(
-                  text: "Masuk",
+                  text: "Masuk".toUpperCase(),
                   onPressed: () => context.goNamed(VerificationPage.routeName),
                 ),
                 const SizedBox(
