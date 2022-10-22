@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: AppColors.lightColorScheme,
         useMaterial3: true,
+        scaffoldBackgroundColor: AppColors.white,
         textTheme: typography,
       ),
       routeInformationParser: router.routeInformationParser,

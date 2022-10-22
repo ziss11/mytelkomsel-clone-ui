@@ -4,7 +4,7 @@ import 'package:mytelkomsel_clone_ui/presentation/pages/login_page.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
 class SplashScreen extends StatefulWidget {
-  static const route = "/splash";
+  static const path = "/splash";
   static const routeName = "splash";
 
   const SplashScreen({super.key});

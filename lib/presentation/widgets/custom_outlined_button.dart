@@ -18,6 +18,7 @@ class CustomOutlinedButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: TextButton(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
         style: OutlinedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4),
