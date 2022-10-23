@@ -28,6 +28,7 @@ class MainPage extends StatelessWidget {
             ),
             SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -51,6 +52,27 @@ class MainPage extends StatelessWidget {
                       ],
                     ),
                   ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 25),
+                    child: Divider(
+                      thickness: 8,
+                      color: AppColors.lightGrey,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 16,
+                      bottom: 8,
+                    ),
+                    child: Text(
+                      "Kategori Paket",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1
+                          ?.copyWith(fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  _kategoryPaket(context),
                 ],
               ),
             ),
@@ -299,6 +321,88 @@ class MainPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _kategoriItem(BuildContext context, String image, String label) {
+    return SizedBox(
+      height: 92,
+      child: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: AppColors.yellow.withOpacity(.2),
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: Image.asset(
+              image,
+              width: 32,
+              height: 32,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            label,
+            style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _kategoryPaket(BuildContext context) {
+    return GridView.count(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      crossAxisCount: 4,
+      mainAxisSpacing: 12,
+      childAspectRatio: 0.9,
+      children: [
+        _kategoriItem(
+          context,
+          "images/internet-kategori.png",
+          "Internet",
+        ),
+        _kategoriItem(
+          context,
+          "images/telp-kategori.png",
+          "Telepon",
+        ),
+        _kategoriItem(
+          context,
+          "images/sms-kategori.png",
+          "SMS",
+        ),
+        _kategoriItem(
+          context,
+          "images/roaming-kategori.png",
+          "Roaming",
+        ),
+        _kategoriItem(
+          context,
+          "images/hiburan-kategori.png",
+          "Hiburan",
+        ),
+        _kategoriItem(
+          context,
+          "images/unggulan-kategori.png",
+          "Unggulan",
+        ),
+        _kategoriItem(
+          context,
+          "images/tersimpan-kategori.png",
+          "Tersimpan",
+        ),
+        _kategoriItem(
+          context,
+          "images/riwayat-kategori.png",
+          "Riwayat",
+        ),
+      ],
     );
   }
 }
