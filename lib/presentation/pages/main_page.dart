@@ -83,6 +83,37 @@ class MainPage extends StatelessWidget {
                           ),
                         ),
                         _kategoryPaket(context),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 20,
+                            left: 16,
+                            right: 16,
+                            bottom: 8,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Terbaru dari Telkomsel",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.copyWith(fontWeight: FontWeight.w700),
+                              ),
+                              Text(
+                                "Lihat Semua",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    ?.copyWith(
+                                      color: AppColors.red,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        _telkomselNewList(),
                       ],
                     ),
                   ),
@@ -371,6 +402,7 @@ class MainPage extends StatelessWidget {
     return GridView.count(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       crossAxisCount: 4,
       mainAxisSpacing: 12,
       childAspectRatio: 0.9,
@@ -416,6 +448,30 @@ class MainPage extends StatelessWidget {
           "Riwayat",
         ),
       ],
+    );
+  }
+
+  Widget _telkomselNewList() {
+    return SizedBox(
+      height: 100,
+      child: ListView(
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+        ),
+        children: [
+          Image.asset(
+            "images/terbaru1.png",
+          ),
+          const SizedBox(
+            width: 12,
+          ),
+          Image.asset(
+            "images/terbaru2.png",
+          ),
+        ],
+      ),
     );
   }
 }
