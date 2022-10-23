@@ -26,55 +26,68 @@ class MainPage extends StatelessWidget {
                 height: 147,
               ),
             ),
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                    ),
-                    child: _simCard(context),
+            Column(
+              children: [
+                SizedBox(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                        ),
+                        child: _simCard(context),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 16,
+                          right: 16,
+                          bottom: 25,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _statusCard(context, "Internet", 12.9, "GB"),
+                            _statusCard(context, "Telepon", 0, "Min"),
+                            _statusCard(context, "SMS", 23, "SMS"),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ),
+                Container(
+                  height: 8,
+                  color: AppColors.lightGrey,
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _statusCard(context, "Internet", 12.9, "GB"),
-                        _statusCard(context, "Telepon", 0, "Min"),
-                        _statusCard(context, "SMS", 23, "SMS"),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 20,
+                            left: 16,
+                            bottom: 8,
+                          ),
+                          child: Text(
+                            "Kategori Paket",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                        _kategoryPaket(context),
                       ],
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 25),
-                    child: Divider(
-                      thickness: 8,
-                      color: AppColors.lightGrey,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 16,
-                      bottom: 8,
-                    ),
-                    child: Text(
-                      "Kategori Paket",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          ?.copyWith(fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                  _kategoryPaket(context),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),
