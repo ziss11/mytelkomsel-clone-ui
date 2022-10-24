@@ -63,52 +63,9 @@ class HomePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 20,
-                          left: 16,
-                          bottom: 8,
-                        ),
-                        child: Text(
-                          "Kategori Paket",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(fontWeight: FontWeight.w700),
-                        ),
-                      ),
                       _kategoryPaket(context),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 20,
-                          left: 16,
-                          right: 16,
-                          bottom: 8,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Terbaru dari Telkomsel",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  ?.copyWith(fontWeight: FontWeight.w700),
-                            ),
-                            Text(
-                              "Lihat Semua",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2
-                                  ?.copyWith(
-                                    color: AppColors.red,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      _telkomselNewList(),
+                      _telkomselNewList(context),
+                      _tanggapCovid(context),
                     ],
                   ),
                 ),
@@ -357,79 +314,206 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _kategoryPaket(BuildContext context) {
-    return GridView.count(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      crossAxisCount: 4,
-      mainAxisSpacing: 12,
-      childAspectRatio: 0.9,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _kategoriItem(
-          context,
-          "images/internet-kategori.png",
-          "Internet",
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 20,
+            left: 16,
+            bottom: 8,
+          ),
+          child: Text(
+            "Kategori Paket",
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.copyWith(fontWeight: FontWeight.w700),
+          ),
         ),
-        _kategoriItem(
-          context,
-          "images/telp-kategori.png",
-          "Telepon",
-        ),
-        _kategoriItem(
-          context,
-          "images/sms-kategori.png",
-          "SMS",
-        ),
-        _kategoriItem(
-          context,
-          "images/roaming-kategori.png",
-          "Roaming",
-        ),
-        _kategoriItem(
-          context,
-          "images/hiburan-kategori.png",
-          "Hiburan",
-        ),
-        _kategoriItem(
-          context,
-          "images/unggulan-kategori.png",
-          "Unggulan",
-        ),
-        _kategoriItem(
-          context,
-          "images/tersimpan-kategori.png",
-          "Tersimpan",
-        ),
-        _kategoriItem(
-          context,
-          "images/riwayat-kategori.png",
-          "Riwayat",
+        GridView.count(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          crossAxisCount: 4,
+          mainAxisSpacing: 12,
+          childAspectRatio: 0.9,
+          children: [
+            _kategoriItem(
+              context,
+              "images/internet-kategori.png",
+              "Internet",
+            ),
+            _kategoriItem(
+              context,
+              "images/telp-kategori.png",
+              "Telepon",
+            ),
+            _kategoriItem(
+              context,
+              "images/sms-kategori.png",
+              "SMS",
+            ),
+            _kategoriItem(
+              context,
+              "images/roaming-kategori.png",
+              "Roaming",
+            ),
+            _kategoriItem(
+              context,
+              "images/hiburan-kategori.png",
+              "Hiburan",
+            ),
+            _kategoriItem(
+              context,
+              "images/unggulan-kategori.png",
+              "Unggulan",
+            ),
+            _kategoriItem(
+              context,
+              "images/tersimpan-kategori.png",
+              "Tersimpan",
+            ),
+            _kategoriItem(
+              context,
+              "images/riwayat-kategori.png",
+              "Riwayat",
+            ),
+          ],
         ),
       ],
     );
   }
 
-  Widget _telkomselNewList() {
-    return SizedBox(
-      height: 100,
-      child: ListView(
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
+  Widget _telkomselNewList(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 20,
+            left: 16,
+            right: 16,
+            bottom: 20,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Terbaru dari Telkomsel",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    ?.copyWith(fontWeight: FontWeight.w700),
+              ),
+              Text(
+                "Lihat Semua",
+                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                      color: AppColors.red,
+                      fontWeight: FontWeight.w500,
+                    ),
+              ),
+            ],
+          ),
         ),
-        children: [
-          Image.asset(
-            "images/terbaru1.png",
+        SizedBox(
+          height: 100,
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
+            children: [
+              Image.asset(
+                "images/terbaru1.png",
+              ),
+              const SizedBox(
+                width: 12,
+              ),
+              Image.asset(
+                "images/terbaru2.png",
+              ),
+            ],
           ),
-          const SizedBox(
-            width: 12,
-          ),
-          Image.asset(
-            "images/terbaru2.png",
-          ),
-        ],
+        ),
+      ],
+    );
+  }
+
+  Widget _tanggapCovidItem(
+      BuildContext context, String image, String description) {
+    return SizedBox(
+      width: 248,
+      child: Card(
+        elevation: 4,
+        color: AppColors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Column(
+          children: [
+            Image.asset(image),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 6,
+              ),
+              child: Text(
+                description,
+                overflow: TextOverflow.clip,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2
+                    ?.copyWith(fontWeight: FontWeight.w500),
+              ),
+            )
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _tanggapCovid(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 32,
+            left: 16,
+            bottom: 20,
+          ),
+          child: Text(
+            "Tanggap COVID-19",
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.copyWith(fontWeight: FontWeight.w700),
+          ),
+        ),
+        SizedBox(
+          height: 172,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            children: [
+              _tanggapCovidItem(
+                context,
+                "images/tanggap1.png",
+                "Diskon Spesial 25% Untuk Pelanggan Baru",
+              ),
+              _tanggapCovidItem(
+                context,
+                "images/tanggap2.png",
+                "Bebas Kuota Akses Layanan Kesehatan",
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
