@@ -230,7 +230,6 @@ class HomePage extends StatelessWidget {
   ) {
     return Container(
       width: 101,
-      height: 68,
       padding: const EdgeInsets.symmetric(
         horizontal: 10,
         vertical: 8,
@@ -241,8 +240,9 @@ class HomePage extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: AppColors.black.withOpacity(.1),
-            blurRadius: 1,
-            spreadRadius: 1,
+            blurRadius: 10,
+            blurStyle: BlurStyle.outer,
+            spreadRadius: 2,
             offset: const Offset(0, 0),
           ),
         ],
