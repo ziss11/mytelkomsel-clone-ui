@@ -65,7 +65,8 @@ class HomePage extends StatelessWidget {
                     children: [
                       _kategoryPaket(context),
                       _telkomselNewList(context),
-                      _tanggapCovid(context),
+                      _tanggapCovidList(context),
+                      _linkAjaList(context),
                     ],
                   ),
                 ),
@@ -473,7 +474,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _tanggapCovid(BuildContext context) {
+  Widget _tanggapCovidList(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -509,6 +510,97 @@ class HomePage extends StatelessWidget {
                 context,
                 "images/tanggap2.png",
                 "Bebas Kuota Akses Layanan Kesehatan",
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _linkAjaItem(BuildContext context, image, String description) {
+    return SizedBox(
+      width: 145,
+      child: Card(
+        elevation: 4,
+        color: AppColors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Column(
+          children: [
+            Image.asset(image),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 6,
+              ),
+              child: Text(
+                description,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0,
+                    ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _linkAjaList(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 32,
+            left: 16,
+            bottom: 20,
+          ),
+          child: Text(
+            "AYO! Pake LinkAja!",
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.copyWith(fontWeight: FontWeight.w700),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 16,
+            bottom: 20,
+          ),
+          child: Text(
+            "Pakai LinkAja untuk beli pulsa, beli paket data dan bayar tagihan lebih mudah.",
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
+        ),
+        SizedBox(
+          height: 132,
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
+            scrollDirection: Axis.horizontal,
+            children: [
+              _linkAjaItem(
+                context,
+                "images/linkaja1.png",
+                "Bayar Serba Cepat",
+              ),
+              _linkAjaItem(
+                context,
+                "images/linkaja2.png",
+                "Cukup Scan QR",
+              ),
+              _linkAjaItem(
+                context,
+                "images/linkaja3.png",
+                "NO! Credit Card",
               ),
             ],
           ),

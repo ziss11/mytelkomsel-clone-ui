@@ -73,58 +73,70 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _bottomNavbar(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: currentIndex,
-      backgroundColor: AppColors.white,
-      type: BottomNavigationBarType.fixed,
-      selectedLabelStyle: Theme.of(context).textTheme.overline?.copyWith(
-            fontWeight: FontWeight.w500,
-            letterSpacing: 0,
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.black.withOpacity(.1),
+            blurRadius: 1,
+            offset: const Offset(0, -1),
+            spreadRadius: 1,
           ),
-      unselectedLabelStyle: Theme.of(context).textTheme.overline?.copyWith(
-            fontWeight: FontWeight.w500,
-            letterSpacing: 0,
+        ],
+      ),
+      child: BottomNavigationBar(
+        currentIndex: currentIndex,
+        backgroundColor: AppColors.white,
+        type: BottomNavigationBarType.fixed,
+        selectedLabelStyle: Theme.of(context).textTheme.overline?.copyWith(
+              fontWeight: FontWeight.w500,
+              letterSpacing: 0,
+            ),
+        unselectedLabelStyle: Theme.of(context).textTheme.overline?.copyWith(
+              fontWeight: FontWeight.w500,
+              letterSpacing: 0,
+            ),
+        showUnselectedLabels: true,
+        selectedItemColor: AppColors.red,
+        unselectedItemColor: AppColors.greyDark,
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage("images/ic_home.png"),
+            ),
+            label: "Beranda",
           ),
-      showUnselectedLabels: true,
-      selectedItemColor: AppColors.red,
-      unselectedItemColor: AppColors.greyDark,
-      onTap: (index) {
-        setState(() {
-          currentIndex = index;
-        });
-      },
-      items: const [
-        BottomNavigationBarItem(
-          icon: ImageIcon(
-            AssetImage("images/ic_home.png"),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage("images/ic_time.png"),
+            ),
+            label: "Riwayat",
           ),
-          label: "Beranda",
-        ),
-        BottomNavigationBarItem(
-          icon: ImageIcon(
-            AssetImage("images/ic_time.png"),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage("images/ic_help.png"),
+            ),
+            label: "Bantuan",
           ),
-          label: "Riwayat",
-        ),
-        BottomNavigationBarItem(
-          icon: ImageIcon(
-            AssetImage("images/ic_help.png"),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage("images/ic_email.png"),
+            ),
+            label: "Inbox",
           ),
-          label: "Bantuan",
-        ),
-        BottomNavigationBarItem(
-          icon: ImageIcon(
-            AssetImage("images/ic_email.png"),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage("images/ic_profile.png"),
+            ),
+            label: "Akun Saya",
           ),
-          label: "Inbox",
-        ),
-        BottomNavigationBarItem(
-          icon: ImageIcon(
-            AssetImage("images/ic_profile.png"),
-          ),
-          label: "Akun Saya",
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
