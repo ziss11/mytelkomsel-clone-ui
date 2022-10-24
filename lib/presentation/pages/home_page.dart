@@ -66,7 +66,9 @@ class HomePage extends StatelessWidget {
                       _kategoryPaket(context),
                       _telkomselNewList(context),
                       _tanggapCovidList(context),
-                      _linkAjaList(context),
+                      _linkAjaList(context: context),
+                      _voucherList(context),
+                      _penawaranList(context),
                     ],
                   ),
                 ),
@@ -386,6 +388,53 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  Widget _longListItem({
+    required BuildContext? context,
+    double? width,
+    String? image,
+    String? description,
+  }) {
+    return SizedBox(
+      width: width,
+      child: Card(
+        elevation: 4,
+        shadowColor: AppColors.black.withOpacity(.1),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: description != null
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  image != null
+                      ? Image.asset(
+                          image,
+                          fit: BoxFit.cover,
+                        )
+                      : const SizedBox(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    child: Text(
+                      description,
+                      overflow: TextOverflow.clip,
+                      style: Theme.of(context!)
+                          .textTheme
+                          .bodyText2
+                          ?.copyWith(fontWeight: FontWeight.w500),
+                    ),
+                  )
+                ],
+              )
+            : image != null
+                ? Image.asset(image)
+                : const SizedBox(),
+      ),
+    );
+  }
+
   Widget _telkomselNewList(BuildContext context) {
     return Column(
       children: [
@@ -412,7 +461,7 @@ class HomePage extends StatelessWidget {
                       color: AppColors.red,
                       fontWeight: FontWeight.w500,
                     ),
-              ),
+              )
             ],
           ),
         ),
@@ -425,52 +474,21 @@ class HomePage extends StatelessWidget {
               horizontal: 16,
             ),
             children: [
-              Image.asset(
-                "images/terbaru1.png",
+              _longListItem(
+                context: context,
+                image: "images/terbaru1.png",
               ),
               const SizedBox(
                 width: 12,
               ),
-              Image.asset(
-                "images/terbaru2.png",
+              _longListItem(
+                context: context,
+                image: "images/terbaru2.png",
               ),
             ],
           ),
         ),
       ],
-    );
-  }
-
-  Widget _tanggapCovidItem(
-      BuildContext context, String image, String description) {
-    return SizedBox(
-      width: 248,
-      child: Card(
-        elevation: 4,
-        shadowColor: AppColors.black.withOpacity(.1),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: Column(
-          children: [
-            Image.asset(image),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 6,
-              ),
-              child: Text(
-                description,
-                overflow: TextOverflow.clip,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText2
-                    ?.copyWith(fontWeight: FontWeight.w500),
-              ),
-            )
-          ],
-        ),
-      ),
     );
   }
 
@@ -501,15 +519,17 @@ class HomePage extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             children: [
-              _tanggapCovidItem(
-                context,
-                "images/tanggap1.png",
-                "Diskon Spesial 25% Untuk Pelanggan Baru",
+              _longListItem(
+                context: context,
+                width: 248,
+                image: "images/tanggap1.png",
+                description: "Diskon Spesial 25% Untuk Pelanggan Baru",
               ),
-              _tanggapCovidItem(
-                context,
-                "images/tanggap2.png",
-                "Bebas Kuota Akses Layanan Kesehatan",
+              _longListItem(
+                context: context,
+                width: 248,
+                image: "images/tanggap2.png",
+                description: "Bebas Kuota Akses Layanan Kesehatan",
               ),
             ],
           ),
@@ -518,7 +538,11 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _linkAjaItem(BuildContext context, image, String description) {
+  Widget _linkAjaItem({
+    required BuildContext? context,
+    String? image,
+    String? description,
+  }) {
     return SizedBox(
       width: 145,
       child: Card(
@@ -529,16 +553,16 @@ class HomePage extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Image.asset(image),
+            image != null ? Image.asset(image) : const SizedBox(),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 12,
                 vertical: 6,
               ),
               child: Text(
-                description,
+                description ?? "",
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                style: Theme.of(context!).textTheme.bodyText2?.copyWith(
                       fontWeight: FontWeight.w600,
                       letterSpacing: 0,
                     ),
@@ -550,7 +574,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _linkAjaList(BuildContext context) {
+  Widget _linkAjaList({required BuildContext? context}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -562,7 +586,7 @@ class HomePage extends StatelessWidget {
           ),
           child: Text(
             "AYO! Pake LinkAja!",
-            style: Theme.of(context)
+            style: Theme.of(context!)
                 .textTheme
                 .bodyText1
                 ?.copyWith(fontWeight: FontWeight.w700),
@@ -588,19 +612,137 @@ class HomePage extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             children: [
               _linkAjaItem(
-                context,
-                "images/linkaja1.png",
-                "Bayar Serba Cepat",
+                context: context,
+                image: "images/linkaja1.png",
+                description: "Bayar Serba Cepat",
               ),
               _linkAjaItem(
-                context,
-                "images/linkaja2.png",
-                "Cukup Scan QR",
+                context: context,
+                image: "images/linkaja2.png",
+                description: "Cukup Scan QR",
               ),
               _linkAjaItem(
-                context,
-                "images/linkaja3.png",
-                "NO! Credit Card",
+                context: context,
+                image: "images/linkaja3.png",
+                description: "NO! Credit Card",
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _voucherList(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 32,
+            left: 16,
+            right: 16,
+            bottom: 20,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Cari Voucher, Yuk!",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    ?.copyWith(fontWeight: FontWeight.w700),
+              ),
+              Text(
+                "Lihat Semua",
+                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                      color: AppColors.red,
+                      fontWeight: FontWeight.w500,
+                    ),
+              )
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 172,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            children: [
+              _longListItem(
+                context: context,
+                width: 248,
+                image: "images/voucher1.png",
+                description: "Double Benefits from DOUBLE UNTUNG",
+              ),
+              _longListItem(
+                context: context,
+                width: 248,
+                image: "images/voucher2.png",
+                description: "Join Undi-Undi Hepi 2020!",
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _penawaranList(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 32,
+            left: 16,
+            right: 16,
+            bottom: 20,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Penawaran Terbatas",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    ?.copyWith(fontWeight: FontWeight.w700),
+              ),
+              Text(
+                "Lihat Semua",
+                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                      color: AppColors.red,
+                      fontWeight: FontWeight.w500,
+                    ),
+              )
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 172,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            children: [
+              _longListItem(
+                context: context,
+                width: 248,
+                image: "images/penawaran1.png",
+                description: "Terus Belajar dari Rumahmu dengan Ruangguru!",
+              ),
+              _longListItem(
+                context: context,
+                width: 248,
+                image: "images/penawaran2.png",
+                description: "Belajar Kini Makin Mudah dengan Paket ilmupedia!",
               ),
             ],
           ),
