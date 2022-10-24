@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:mytelkomsel_clone_ui/presentation/pages/internet_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/login_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/main_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/splash_screen.dart';
@@ -17,6 +18,13 @@ final router = GoRouter(
       path: MainPage.path,
       name: MainPage.routeName,
       builder: (context, state) => const MainPage(),
+      routes: [
+        GoRoute(
+          path: InternetPage.path,
+          name: InternetPage.routeName,
+          builder: (context, state) => const InternetPage(),
+        ),
+      ],
     ),
     GoRoute(
       path: LoginPage.path,
