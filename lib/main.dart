@@ -13,6 +13,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        cardTheme: const CardTheme(
+          surfaceTintColor: AppColors.white,
+        ),
         useMaterial3: true,
         scaffoldBackgroundColor: AppColors.white,
         textTheme: typography,

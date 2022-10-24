@@ -447,7 +447,7 @@ class HomePage extends StatelessWidget {
       width: 248,
       child: Card(
         elevation: 4,
-        color: AppColors.white,
+        shadowColor: AppColors.black.withOpacity(.1),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
         ),
@@ -523,7 +523,7 @@ class HomePage extends StatelessWidget {
       width: 145,
       child: Card(
         elevation: 4,
-        color: AppColors.white,
+        shadowColor: AppColors.black.withOpacity(.1),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
         ),
