@@ -99,13 +99,11 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         TextSpan(
                           text: " syarat, ketentuan",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.w700,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    color: AppColors.red,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                         ),
                         TextSpan(
                           text: " privasi",
@@ -113,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                               .textTheme
                               .bodyText2
                               ?.copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
+                                  color: AppColors.red,
                                   fontWeight: FontWeight.w700),
                         ),
                         TextSpan(
