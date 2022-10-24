@@ -499,9 +499,6 @@ class HomePage extends StatelessWidget {
                 context: context,
                 image: "images/terbaru1.png",
               ),
-              const SizedBox(
-                width: 12,
-              ),
               _longListItem(
                 context: context,
                 image: "images/terbaru2.png",
