@@ -16,6 +16,9 @@ class MyApp extends StatelessWidget {
         cardTheme: const CardTheme(
           surfaceTintColor: AppColors.white,
         ),
+        appBarTheme: const AppBarTheme(
+          surfaceTintColor: AppColors.white,
+        ),
         useMaterial3: true,
         scaffoldBackgroundColor: AppColors.white,
         textTheme: typography,

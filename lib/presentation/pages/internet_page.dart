@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mytelkomsel_clone_ui/data/model/paket_model.dart';
+import 'package:mytelkomsel_clone_ui/data/paket_data.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_textfield.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
@@ -19,21 +21,44 @@ class InternetPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(
-                left: 16,
-                right: 16,
-                top: 12,
-                bottom: 16,
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.only(
+            bottom: 32,
+            top: 12,
+          ),
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  bottom: 16,
+                ),
+                child: FilledTextField(),
               ),
-              child: FilledTextField(),
-            ),
-            _newPaketInternet(),
-            _langgananList(context),
-            _kategoriList(context),
-          ],
+              _newPaketInternet(),
+              _paketList(
+                context,
+                "Langganan Kamu",
+                PaketData.langgananList,
+              ),
+              _kategoriList(context),
+              _paketList(
+                context,
+                "Popular",
+                PaketData.popularList,
+              ),
+              _paketList(
+                context,
+                "Belajar #dirumahaja",
+                PaketData.belajarList,
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -63,15 +88,7 @@ class InternetPage extends StatelessWidget {
     );
   }
 
-  Widget _langgananItem(
-    BuildContext context,
-    int data,
-    String unit,
-    int numOfDay,
-    String dayUnit,
-    int priceBeforeDisc,
-    int priceAfterDisc,
-  ) {
+  Widget _paketItem(BuildContext context, PaketModel paket) {
     return SizedBox(
       width: 248,
       child: Card(
@@ -84,7 +101,7 @@ class InternetPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "$data $unit",
+                    "${paket.data} ${paket.unit}",
                     style: Theme.of(context)
                         .textTheme
                         .headline5
@@ -110,7 +127,7 @@ class InternetPage extends StatelessWidget {
                           width: 4,
                         ),
                         Text(
-                          "$numOfDay ${dayUnit.toUpperCase()}",
+                          "${paket.numOfDay} ${paket.dayUnit.toUpperCase()}",
                           style: Theme.of(context).textTheme.caption?.copyWith(
                                 fontWeight: FontWeight.w700,
                                 color: AppColors.black,
@@ -133,29 +150,33 @@ class InternetPage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Text(
-                NumberFormat.currency(
-                  locale: "id",
-                  symbol: "Rp",
-                  decimalDigits: 0,
-                ).format(
-                  priceBeforeDisc,
-                ),
-                style: Theme.of(context).textTheme.caption?.copyWith(
-                    color: AppColors.greyDark,
-                    decoration: TextDecoration.lineThrough),
-              ),
+              paket.priceBeforeDisc != null
+                  ? Text(
+                      NumberFormat.currency(
+                        locale: "id",
+                        symbol: "Rp",
+                        decimalDigits: 0,
+                      ).format(
+                        paket.priceBeforeDisc,
+                      ),
+                      style: Theme.of(context).textTheme.caption?.copyWith(
+                          color: AppColors.greyDark,
+                          decoration: TextDecoration.lineThrough),
+                    )
+                  : const SizedBox(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    NumberFormat.currency(
-                      locale: "id",
-                      symbol: "Rp",
-                      decimalDigits: 0,
-                    ).format(
-                      priceAfterDisc,
-                    ),
+                    paket.price is int
+                        ? NumberFormat.currency(
+                            locale: "id",
+                            symbol: "Rp",
+                            decimalDigits: 0,
+                          ).format(
+                            paket.price,
+                          )
+                        : paket.price.toString().toUpperCase(),
                     style: Theme.of(context).textTheme.headline6?.copyWith(
                           color: AppColors.red,
                           fontSize: 18,
@@ -178,7 +199,11 @@ class InternetPage extends StatelessWidget {
     );
   }
 
-  Widget _langgananList(BuildContext context) {
+  Widget _paketList(
+    BuildContext context,
+    String title,
+    List<PaketModel> paketList,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -190,7 +215,7 @@ class InternetPage extends StatelessWidget {
             bottom: 20,
           ),
           child: Text(
-            "Langganan Kamu",
+            title,
             style: Theme.of(context)
                 .textTheme
                 .bodyText1
@@ -199,16 +224,19 @@ class InternetPage extends StatelessWidget {
         ),
         SizedBox(
           height: 130,
-          child: ListView(
+          child: ListView.builder(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(
               horizontal: 16,
             ),
             scrollDirection: Axis.horizontal,
-            children: [
-              _langgananItem(context, 14, "GB", 30, "hari", 99000, 96000),
-              _langgananItem(context, 27, "GB", 30, "hari", 145000, 133000),
-            ],
+            itemCount: paketList.length,
+            itemBuilder: (context, index) {
+              return _paketItem(
+                context,
+                paketList[index],
+              );
+            },
           ),
         ),
       ],
