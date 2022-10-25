@@ -32,6 +32,7 @@ class InternetPage extends StatelessWidget {
             ),
             _newPaketInternet(),
             _langgananList(context),
+            _kategoriList(context),
           ],
         ),
       ),
@@ -207,6 +208,111 @@ class InternetPage extends StatelessWidget {
             children: [
               _langgananItem(context, 14, "GB", 30, "hari", 99000, 96000),
               _langgananItem(context, 27, "GB", 30, "hari", 145000, 133000),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _kategoriItem(BuildContext context, String text) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 10,
+      ),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            AppColors.red,
+            AppColors.darkRed,
+          ],
+        ),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Text(
+        text,
+        overflow: TextOverflow.clip,
+        style: Theme.of(context).textTheme.bodyText2?.copyWith(
+              fontWeight: FontWeight.w500,
+              color: AppColors.white,
+            ),
+      ),
+    );
+  }
+
+  Widget _kategoriList(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 20,
+            left: 16,
+            right: 16,
+            bottom: 20,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Kategori",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    ?.copyWith(fontWeight: FontWeight.w700),
+              ),
+              Text(
+                "Lihat Semua",
+                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                      color: AppColors.red,
+                      fontWeight: FontWeight.w500,
+                    ),
+              )
+            ],
+          ),
+        ),
+        ConstrainedBox(
+          constraints: const BoxConstraints(
+            minHeight: 60,
+            maxHeight: 128,
+          ),
+          child: GridView.count(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
+            scrollDirection: Axis.horizontal,
+            crossAxisCount: 2,
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 8,
+            childAspectRatio: .4,
+            children: [
+              _kategoriItem(
+                context,
+                "My Telkomsel Reward",
+              ),
+              _kategoriItem(
+                context,
+                "Combo SAKTI",
+              ),
+              _kategoriItem(
+                context,
+                "Paket Conference",
+              ),
+              _kategoriItem(
+                context,
+                "Internet Mingguan",
+              ),
+              _kategoriItem(
+                context,
+                "Internet Bulanan",
+              ),
+              _kategoriItem(
+                context,
+                "iPhone Plan",
+              ),
             ],
           ),
         ),
