@@ -15,4 +15,4 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-Designed by Muhammad Najid: [UX Case Study - MyTsel](https://www.figma.com/community/file/901556661257999936)
+UI Design by Muhammad Najid: [UX Case Study - MyTsel](https://www.figma.com/community/file/901556661257999936)
