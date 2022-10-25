@@ -9,6 +9,9 @@ class OutlineTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+            fontWeight: FontWeight.w500,
+          ),
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(12),
         focusedBorder: OutlineInputBorder(

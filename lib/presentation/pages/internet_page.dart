@@ -1,15 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:mytelkomsel_clone_ui/data/model/paket_model.dart';
 import 'package:mytelkomsel_clone_ui/data/paket_data.dart';
+import 'package:mytelkomsel_clone_ui/presentation/pages/search_package_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_textfield.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
-class InternetPage extends StatelessWidget {
+class InternetPage extends StatefulWidget {
   static const path = "internet";
   static const routeName = "internet-page";
 
   const InternetPage({super.key});
+
+  @override
+  State<InternetPage> createState() => _InternetPageState();
+}
+
+class _InternetPageState extends State<InternetPage> {
+  final _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        context.goNamed(SearchPackagePage.routeName);
+        _focusNode.unfocus();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +49,15 @@ class InternetPage extends StatelessWidget {
           ),
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.only(
+              Padding(
+                padding: const EdgeInsets.only(
                   left: 16,
                   right: 16,
                   bottom: 16,
                 ),
-                child: FilledTextField(),
+                child: FilledTextField(
+                  focusNode: _focusNode,
+                ),
               ),
               _newPaketInternet(),
               _paketList(
@@ -88,7 +110,7 @@ class InternetPage extends StatelessWidget {
     );
   }
 
-  Widget _paketItem(BuildContext context, PaketModel paket) {
+  Widget _paketItem(PaketModel paket) {
     return SizedBox(
       width: 248,
       child: Card(
@@ -233,7 +255,6 @@ class InternetPage extends StatelessWidget {
             itemCount: paketList.length,
             itemBuilder: (context, index) {
               return _paketItem(
-                context,
                 paketList[index],
               );
             },
@@ -243,7 +264,7 @@ class InternetPage extends StatelessWidget {
     );
   }
 
-  Widget _kategoriItem(BuildContext context, String text) {
+  Widget _kategoriItem(String text) {
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 12,
@@ -317,30 +338,12 @@ class InternetPage extends StatelessWidget {
             crossAxisSpacing: 8,
             childAspectRatio: .4,
             children: [
-              _kategoriItem(
-                context,
-                "My Telkomsel Reward",
-              ),
-              _kategoriItem(
-                context,
-                "Combo SAKTI",
-              ),
-              _kategoriItem(
-                context,
-                "Paket Conference",
-              ),
-              _kategoriItem(
-                context,
-                "Internet Mingguan",
-              ),
-              _kategoriItem(
-                context,
-                "Internet Bulanan",
-              ),
-              _kategoriItem(
-                context,
-                "iPhone Plan",
-              ),
+              _kategoriItem("My Telkomsel Reward"),
+              _kategoriItem("Combo SAKTI"),
+              _kategoriItem("Paket Conference"),
+              _kategoriItem("Internet Mingguan"),
+              _kategoriItem("Internet Bulanan"),
+              _kategoriItem("iPhone Plan"),
             ],
           ),
         ),

@@ -2,11 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
 class FilledTextField extends StatelessWidget {
-  const FilledTextField({super.key});
+  final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
+
+  const FilledTextField({
+    super.key,
+    this.focusNode,
+    this.textInputAction,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+            fontWeight: FontWeight.w500,
+          ),
+      focusNode: focusNode,
+      textInputAction: textInputAction,
       decoration: InputDecoration(
         filled: true,
         fillColor: AppColors.lightGrey,
