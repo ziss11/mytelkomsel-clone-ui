@@ -16,11 +16,18 @@ class SearchPackagePage extends StatefulWidget {
 
 class _SearchPackagePageState extends State<SearchPackagePage> {
   final _focusNode = FocusNode();
+  final _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _focusNode.requestFocus();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.dispose();
   }
 
   @override
@@ -47,8 +54,8 @@ class _SearchPackagePageState extends State<SearchPackagePage> {
         width: double.infinity,
         height: 40,
         child: FilledTextField(
+          controller: _searchController,
           focusNode: _focusNode,
-          textInputAction: TextInputAction.search,
         ),
       ),
       actions: [
@@ -74,45 +81,47 @@ class _SearchPackagePageState extends State<SearchPackagePage> {
     );
   }
 
-  Widget _searchHistoryItem(String text) {
-    return Row(
-      children: [
-        const ImageIcon(
-          AssetImage(
-            "images/ic_time_backward.png",
-          ),
-          color: AppColors.grey,
-        ),
-        const SizedBox(
-          width: 8,
-        ),
-        Text(
-          text,
-          style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                fontWeight: FontWeight.w500,
-                color: AppColors.greyDark,
-              ),
-        ),
-        const Spacer(),
-        IconButton(
-          padding: EdgeInsets.zero,
-          constraints: const BoxConstraints(),
-          onPressed: () {},
-          icon: const Icon(
-            Icons.clear,
+  Widget _searchHistoryItem(int id, String text) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(4),
+      onTap: () {},
+      child: Row(
+        children: [
+          const ImageIcon(
+            AssetImage(
+              "images/ic_time_backward.png",
+            ),
             color: AppColors.grey,
           ),
-        ),
-      ],
+          const SizedBox(
+            width: 8,
+          ),
+          Text(
+            text,
+            style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.greyDark,
+                ),
+          ),
+          const Spacer(),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.clear,
+              color: AppColors.grey,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _searchHistory() {
     final historyList = [
-      _searchHistoryItem("ruang guru"),
-      _searchHistoryItem("omg"),
-      _searchHistoryItem("ketengan"),
-      _searchHistoryItem("ilmupedia"),
+      _searchHistoryItem(1, "ruang guru"),
+      _searchHistoryItem(2, "omg"),
+      _searchHistoryItem(3, "ketengan"),
+      _searchHistoryItem(4, "ilmupedia"),
     ];
 
     return Padding(
@@ -146,22 +155,26 @@ class _SearchPackagePageState extends State<SearchPackagePage> {
   }
 
   Widget _popularSearchItem(String text) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 8,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50),
-        border: Border.all(color: AppColors.red),
-      ),
-      child: Text(
-        text,
-        style: Theme.of(context).textTheme.caption?.copyWith(
-              fontWeight: FontWeight.w500,
-              color: AppColors.red,
-              letterSpacing: 0,
-            ),
+    return InkWell(
+      borderRadius: BorderRadius.circular(50),
+      onTap: () {},
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 8,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(color: AppColors.red),
+        ),
+        child: Text(
+          text,
+          style: Theme.of(context).textTheme.caption?.copyWith(
+                fontWeight: FontWeight.w500,
+                color: AppColors.red,
+                letterSpacing: 0,
+              ),
+        ),
       ),
     );
   }
