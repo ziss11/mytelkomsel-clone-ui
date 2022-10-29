@@ -188,15 +188,59 @@ class PackageDetail extends StatelessWidget {
     );
   }
 
+  Widget _rincianItem(
+      BuildContext context, String label, dynamic data, String unit) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
+          Text(
+            "$data ${unit.toUpperCase()}",
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2
+                ?.copyWith(fontWeight: FontWeight.w700),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _rincianPaket(BuildContext context) {
     return Container(
+      color: AppColors.white,
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 20,
       ),
       child: Column(
-        children: [],
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Rincian Paket",
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.copyWith(fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          Wrap(
+            children: [
+              _rincianItem(context, "Internet", paket.data, paket.unit),
+              _rincianItem(context, "OMG!", 2, "gb"),
+              _rincianItem(context, "SMS Tsel", 60, "sms"),
+              _rincianItem(context, "Voice Tsel", 100, "mins"),
+            ],
+          ),
+        ],
       ),
     );
   }
