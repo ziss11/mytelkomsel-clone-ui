@@ -3,14 +3,12 @@ import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
 class FilledTextField extends StatefulWidget {
   final TextEditingController? controller;
-  final Function(String)? onChanged;
   final FocusNode? focusNode;
   final TextInputAction? textInputAction;
 
   const FilledTextField({
     super.key,
     this.controller,
-    this.onChanged,
     this.focusNode,
     this.textInputAction,
   });
@@ -38,7 +36,6 @@ class _FilledTextFieldState extends State<FilledTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
-      onChanged: widget.onChanged,
       style: Theme.of(context).textTheme.bodyText2?.copyWith(
             fontWeight: FontWeight.w500,
           ),
@@ -73,9 +70,6 @@ class _FilledTextFieldState extends State<FilledTextField> {
                   setState(() {
                     if (widget.controller != null) {
                       widget.controller!.clear();
-                    }
-                    if (widget.onChanged != null) {
-                      widget.onChanged!("");
                     }
                   });
                 },

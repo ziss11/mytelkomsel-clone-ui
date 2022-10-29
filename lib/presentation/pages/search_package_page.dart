@@ -28,6 +28,7 @@ class _SearchPackagePageState extends State<SearchPackagePage> {
   void dispose() {
     super.dispose();
     _searchController.dispose();
+    _focusNode.unfocus();
   }
 
   @override
@@ -50,13 +51,9 @@ class _SearchPackagePageState extends State<SearchPackagePage> {
   AppBar _appBar(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      title: SizedBox(
-        width: double.infinity,
-        height: 40,
-        child: FilledTextField(
-          controller: _searchController,
-          focusNode: _focusNode,
-        ),
+      title: FilledTextField(
+        controller: _searchController,
+        focusNode: _focusNode,
       ),
       actions: [
         Padding(

@@ -1,8 +1,11 @@
 import 'package:go_router/go_router.dart';
+import 'package:mytelkomsel_clone_ui/data/model/paket_model.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/internet_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/login_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/main_page.dart';
+import 'package:mytelkomsel_clone_ui/presentation/pages/package_detail.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/search_package_page.dart';
+import 'package:mytelkomsel_clone_ui/presentation/pages/search_package_result_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/splash_screen.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/verification_page.dart';
 
@@ -26,9 +29,24 @@ final router = GoRouter(
           builder: (context, state) => const InternetPage(),
           routes: [
             GoRoute(
+              path: PackageDetail.path,
+              name: PackageDetail.routeName,
+              builder: (context, state) {
+                final paket = state.extra as PaketModel;
+                return PackageDetail(paket: paket);
+              },
+            ),
+            GoRoute(
               path: SearchPackagePage.path,
               name: SearchPackagePage.routeName,
               builder: (context, state) => const SearchPackagePage(),
+              routes: [
+                GoRoute(
+                  path: SearchPackageResultPage.path,
+                  name: SearchPackageResultPage.routeName,
+                  builder: (context, state) => const SearchPackageResultPage(),
+                ),
+              ],
             ),
           ],
         ),

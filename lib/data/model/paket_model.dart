@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class PaketModel extends Equatable {
-  final int data;
+  final num data;
   final String unit;
   final int numOfDay;
   final String dayUnit;

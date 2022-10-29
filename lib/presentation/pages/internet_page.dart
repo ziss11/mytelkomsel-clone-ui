@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:mytelkomsel_clone_ui/data/model/paket_model.dart';
 import 'package:mytelkomsel_clone_ui/data/paket_data.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/search_package_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_textfield.dart';
+import 'package:mytelkomsel_clone_ui/presentation/widgets/package_card.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
 class InternetPage extends StatefulWidget {
@@ -110,117 +110,6 @@ class _InternetPageState extends State<InternetPage> {
     );
   }
 
-  Widget _paketItem(PaketModel paket) {
-    return SizedBox(
-      width: 248,
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "${paket.data} ${paket.unit}",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5
-                        ?.copyWith(fontWeight: FontWeight.w700),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: AppColors.lightGrey,
-                    ),
-                    child: Row(
-                      children: [
-                        const ImageIcon(
-                          AssetImage(
-                            "images/ic_count_down.png",
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        Text(
-                          "${paket.numOfDay} ${paket.dayUnit.toUpperCase()}",
-                          style: Theme.of(context).textTheme.caption?.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.black,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: const ImageIcon(
-                      AssetImage(
-                        "images/ic_bookmark.png",
-                      ),
-                      color: AppColors.grey,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              paket.priceBeforeDisc != null
-                  ? Text(
-                      NumberFormat.currency(
-                        locale: "id",
-                        symbol: "Rp",
-                        decimalDigits: 0,
-                      ).format(
-                        paket.priceBeforeDisc,
-                      ),
-                      style: Theme.of(context).textTheme.caption?.copyWith(
-                          color: AppColors.greyDark,
-                          decoration: TextDecoration.lineThrough),
-                    )
-                  : const SizedBox(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    paket.price is int
-                        ? NumberFormat.currency(
-                            locale: "id",
-                            symbol: "Rp",
-                            decimalDigits: 0,
-                          ).format(
-                            paket.price,
-                          )
-                        : paket.price.toString().toUpperCase(),
-                    style: Theme.of(context).textTheme.headline6?.copyWith(
-                          color: AppColors.red,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
-                  ),
-                  Text(
-                    "Internet OMG!",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2
-                        ?.copyWith(fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _paketList(
     BuildContext context,
     String title,
@@ -254,8 +143,8 @@ class _InternetPageState extends State<InternetPage> {
             scrollDirection: Axis.horizontal,
             itemCount: paketList.length,
             itemBuilder: (context, index) {
-              return _paketItem(
-                paketList[index],
+              return PackageCard(
+                paket: paketList[index],
               );
             },
           ),
