@@ -19,11 +19,13 @@ class PackageDetail extends StatelessWidget {
       appBar: _appBar(),
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
               _header(context),
               _masaAktif(context),
-              _rincianPaket(context)
+              _rincianPaket(context),
+              _deskripsiPaket(context),
             ],
           ),
         ),
@@ -190,24 +192,21 @@ class PackageDetail extends StatelessWidget {
 
   Widget _rincianItem(
       BuildContext context, String label, dynamic data, String unit) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: Theme.of(context).textTheme.bodyText2,
-          ),
-          Text(
-            "$data ${unit.toUpperCase()}",
-            style: Theme.of(context)
-                .textTheme
-                .bodyText2
-                ?.copyWith(fontWeight: FontWeight.w700),
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
+        Text(
+          "$data ${unit.toUpperCase()}",
+          style: Theme.of(context)
+              .textTheme
+              .bodyText2
+              ?.copyWith(fontWeight: FontWeight.w700),
+        ),
+      ],
     );
   }
 
@@ -233,11 +232,92 @@ class PackageDetail extends StatelessWidget {
             height: 12,
           ),
           Wrap(
+            runSpacing: 8,
             children: [
               _rincianItem(context, "Internet", paket.data, paket.unit),
               _rincianItem(context, "OMG!", 2, "gb"),
               _rincianItem(context, "SMS Tsel", 60, "sms"),
               _rincianItem(context, "Voice Tsel", 100, "mins"),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _deskripsiItem(BuildContext context, String description) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          width: 6,
+          height: 6,
+          margin: const EdgeInsets.only(right: 12),
+          decoration: BoxDecoration(
+            color: AppColors.black,
+            borderRadius: BorderRadius.circular(50),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            description,
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _deskripsiPaket(BuildContext context) {
+    return Container(
+      color: AppColors.white,
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 20,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Deskripsi Paket",
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.copyWith(fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          Text(
+            "Paket Internet OMG! berlaku untuk 30 hari, dengan rincian kuota:",
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2
+                ?.copyWith(letterSpacing: 0),
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          Wrap(
+            runSpacing: 8,
+            children: [
+              _deskripsiItem(
+                context,
+                "Kuota Internet dengan akses di semua jaringan (2G/3G/4G).",
+              ),
+              _deskripsiItem(
+                context,
+                "Kuota Nelpon ke Sesama Telkomsel",
+              ),
+              _deskripsiItem(
+                context,
+                "Kuota 2 GB OMG! untuk akses Youtube, Facebook, Instagram, MAXstream, Viu, iFlix, Klik Film, Bein Sport, dan Nickelodeon Play berlaku 30 hari.",
+              ),
+              _deskripsiItem(
+                context,
+                "Termasuk berlangganan 30 hari.",
+              ),
             ],
           ),
         ],
