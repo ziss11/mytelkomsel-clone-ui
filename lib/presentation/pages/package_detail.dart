@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mytelkomsel_clone_ui/data/model/paket_model.dart';
+import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_button.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_textfield.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
@@ -17,6 +18,7 @@ class PackageDetail extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.lightGrey,
       appBar: _appBar(),
+      bottomNavigationBar: _bottomAppaBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -26,6 +28,7 @@ class PackageDetail extends StatelessWidget {
               _masaAktif(context),
               _rincianPaket(context),
               _deskripsiPaket(context),
+              _syaratKetentuan(context),
             ],
           ),
         ),
@@ -46,6 +49,22 @@ class PackageDetail extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _bottomAppaBar() {
+    return BottomAppBar(
+      color: AppColors.white,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 9,
+        ),
+        child: FilledButton(
+          text: "BELI SEKARANG",
+          onPressed: () {},
+        ),
+      ),
     );
   }
 
@@ -317,6 +336,81 @@ class PackageDetail extends StatelessWidget {
               _deskripsiItem(
                 context,
                 "Termasuk berlangganan 30 hari.",
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _syaratKetentuanItem(
+      BuildContext context, int number, String description) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "${number.toString()}. ",
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
+        const SizedBox(
+          width: 8,
+        ),
+        Expanded(
+          child: Text(
+            description,
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _syaratKetentuan(BuildContext context) {
+    return Container(
+      color: AppColors.white,
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 20,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Syarat dan Ketentuan",
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.copyWith(fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          Wrap(
+            runSpacing: 8,
+            children: [
+              _syaratKetentuanItem(
+                context,
+                1,
+                "Paket berlaku hanya untuk pemakaian dalam negeri (Tidak berlaku untuk pemakaian luar negeri).",
+              ),
+              _syaratKetentuanItem(
+                context,
+                2,
+                "Setelah melewati volume yang disediakan, pelanggan akan dikenakan tarif normal.",
+              ),
+              _syaratKetentuanItem(
+                context,
+                3,
+                "Kuota internet lokal hanya dapat digunakan di lokasi pelanggan melakukan aktivasi paket.",
+              ),
+              Text(
+                "Selengkapnya",
+                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                      color: AppColors.red,
+                      fontWeight: FontWeight.w500,
+                    ),
               ),
             ],
           ),
