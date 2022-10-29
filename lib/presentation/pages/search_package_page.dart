@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/internet_page.dart';
+import 'package:mytelkomsel_clone_ui/presentation/pages/search_package_result_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_textfield.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
@@ -15,6 +16,8 @@ class SearchPackagePage extends StatefulWidget {
 }
 
 class _SearchPackagePageState extends State<SearchPackagePage> {
+  String query = "";
+
   final _focusNode = FocusNode();
   final _searchController = TextEditingController();
 
@@ -22,6 +25,11 @@ class _SearchPackagePageState extends State<SearchPackagePage> {
   void initState() {
     super.initState();
     _focusNode.requestFocus();
+    _searchController.addListener(() {
+      setState(() {
+        _searchController.text;
+      });
+    });
   }
 
   @override
@@ -53,7 +61,16 @@ class _SearchPackagePageState extends State<SearchPackagePage> {
       automaticallyImplyLeading: false,
       title: FilledTextField(
         controller: _searchController,
+        onChanged: (value) {
+          if (value.isNotEmpty) {
+            context.pushNamed(
+              SearchPackageResultPage.routeName,
+              params: {'query': value},
+            );
+          }
+        },
         focusNode: _focusNode,
+        textInputAction: TextInputAction.search,
       ),
       actions: [
         Padding(

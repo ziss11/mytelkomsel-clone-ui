@@ -44,7 +44,10 @@ final router = GoRouter(
                 GoRoute(
                   path: SearchPackageResultPage.path,
                   name: SearchPackageResultPage.routeName,
-                  builder: (context, state) => const SearchPackageResultPage(),
+                  builder: (context, state) {
+                    final query = state.params["query"] ?? "";
+                    return SearchPackageResultPage(query: query);
+                  },
                 ),
               ],
             ),
