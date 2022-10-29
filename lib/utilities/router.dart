@@ -39,17 +39,18 @@ final router = GoRouter(
             GoRoute(
               path: SearchPackagePage.path,
               name: SearchPackagePage.routeName,
-              builder: (context, state) => const SearchPackagePage(),
-              routes: [
-                GoRoute(
-                  path: SearchPackageResultPage.path,
-                  name: SearchPackageResultPage.routeName,
-                  builder: (context, state) {
-                    final query = state.params["query"] ?? "";
-                    return SearchPackageResultPage(query: query);
-                  },
-                ),
-              ],
+              builder: (context, state) {
+                final query = state.extra as String;
+                return SearchPackagePage(query: query);
+              },
+            ),
+            GoRoute(
+              path: SearchPackageResultPage.path,
+              name: SearchPackageResultPage.routeName,
+              builder: (context, state) {
+                final query = state.params["query"] ?? "";
+                return SearchPackageResultPage(query: query);
+              },
             ),
           ],
         ),

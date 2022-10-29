@@ -25,7 +25,10 @@ class _InternetPageState extends State<InternetPage> {
     super.initState();
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
-        context.goNamed(SearchPackagePage.routeName);
+        context.goNamed(
+          SearchPackagePage.routeName,
+          extra: "",
+        );
         _focusNode.unfocus();
       }
     });
@@ -38,6 +41,10 @@ class _InternetPageState extends State<InternetPage> {
         title: const Text(
           "Paket Internet",
         ),
+        titleTextStyle: Theme.of(context).textTheme.headline6?.copyWith(
+              fontSize: 18,
+              letterSpacing: 0,
+            ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mytelkomsel_clone_ui/data/paket_data.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/search_package_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_textfield.dart';
+import 'package:mytelkomsel_clone_ui/presentation/widgets/package_card.dart';
+import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
 class SearchPackageResultPage extends StatefulWidget {
   static const path = "search-package-result/:query";
@@ -26,12 +29,14 @@ class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
   @override
   void initState() {
     super.initState();
-    _focusNode.requestFocus();
-    _searchController = TextEditingController(text: widget.query);
-    _searchController.addListener(() {
-      setState(() {
-        _searchController.text;
-      });
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        context.pushNamed(
+          SearchPackagePage.routeName,
+          extra: widget.query,
+        );
+        _focusNode.unfocus();
+      }
     });
   }
 
@@ -44,14 +49,12 @@ class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
 
   @override
   Widget build(BuildContext context) {
+    _searchController = TextEditingController(text: widget.query);
+
     return Scaffold(
       appBar: _appBar(),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [],
-          ),
-        ),
+        child: _searchResult(),
       ),
     );
   }
@@ -63,11 +66,86 @@ class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
         focusNode: _focusNode,
         controller: _searchController,
         textInputAction: TextInputAction.search,
-        onChanged: (value) {
-          if (_searchController.text.isEmpty && value.isEmpty) {
-            context.pushNamed(SearchPackagePage.routeName);
-          }
-        },
+      ),
+      bottom: _searchOption(context),
+    );
+  }
+
+  Widget _optionItem(BuildContext context, ImageProvider icon,
+      String optionName, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        vertical: 8,
+        horizontal: 11,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.lightGrey,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Row(
+        children: [
+          ImageIcon(
+            icon,
+            color: color,
+          ),
+          const SizedBox(
+            width: 6,
+          ),
+          Text(
+            optionName,
+            style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  PreferredSize _searchOption(BuildContext context) {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(38),
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 16,
+          right: 16,
+          top: 12,
+        ),
+        child: Row(
+          children: [
+            _optionItem(
+              context,
+              const AssetImage("images/ic_filter.png"),
+              "Filter",
+              AppColors.red,
+            ),
+            const SizedBox(
+              width: 12,
+            ),
+            _optionItem(
+              context,
+              const AssetImage("images/ic_sort.png"),
+              "Urutkan",
+              AppColors.black,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _searchResult() {
+    return ListView.separated(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 20,
+      ),
+      physics: const BouncingScrollPhysics(),
+      itemCount: PaketData.searchResultList.length,
+      separatorBuilder: (context, idx) => const SizedBox(height: 12),
+      itemBuilder: (context, idx) => PackageCard(
+        paket: PaketData.searchResultList[idx],
       ),
     );
   }

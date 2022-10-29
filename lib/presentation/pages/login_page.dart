@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 8,
                 ),
                 CheckboxListTile(
-                  activeColor: Theme.of(context).colorScheme.primary,
+                  activeColor: AppColors.red,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   checkColor: AppColors.white,
