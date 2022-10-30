@@ -18,21 +18,34 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: currentIndex);
+  }
 
   @override
   Widget build(BuildContext context) {
-    const pageList = [
-      HomePage(),
-      RiwayatPage(),
-      BantuanPage(),
-      InboxPage(),
-      ProfilePage(),
-    ];
-
     return Scaffold(
       appBar: currentIndex == 0 ? _appBar(context) : AppBar(),
       bottomNavigationBar: _bottomNavbar(context),
-      body: pageList[currentIndex],
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        children: const [
+          HomePage(),
+          RiwayatPage(),
+          BantuanPage(),
+          InboxPage(),
+          ProfilePage(),
+        ],
+      ),
     );
   }
 
@@ -100,39 +113,31 @@ class _MainPageState extends State<MainPage> {
         selectedItemColor: AppColors.red,
         unselectedItemColor: AppColors.greyDark,
         onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
+          _pageController.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeIn,
+          );
         },
         items: const [
           BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage("images/ic_home.png"),
-            ),
+            icon: ImageIcon(AssetImage("images/ic_home.png")),
             label: "Beranda",
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage("images/ic_time.png"),
-            ),
+            icon: ImageIcon(AssetImage("images/ic_time.png")),
             label: "Riwayat",
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage("images/ic_help.png"),
-            ),
+            icon: ImageIcon(AssetImage("images/ic_help.png")),
             label: "Bantuan",
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage("images/ic_email.png"),
-            ),
+            icon: ImageIcon(AssetImage("images/ic_email.png")),
             label: "Inbox",
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage("images/ic_profile.png"),
-            ),
+            icon: ImageIcon(AssetImage("images/ic_profile.png")),
             label: "Akun Saya",
           ),
         ],

@@ -1,11 +1,10 @@
-import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mytelkomsel_clone_ui/data/paket_data.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/search_package_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_textfield.dart';
-import 'package:mytelkomsel_clone_ui/presentation/widgets/outlined_textfield.dart';
+import 'package:mytelkomsel_clone_ui/presentation/widgets/filter_bottom_sheet.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/package_card.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
@@ -23,8 +22,6 @@ class SearchPackageResultPage extends StatefulWidget {
 }
 
 class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
-  double _sliderValue = 0;
-
   final _focusNode = FocusNode();
   late TextEditingController _searchController;
 
@@ -152,154 +149,7 @@ class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
       ),
       context: context,
       builder: (context) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                margin: const EdgeInsets.only(top: 8),
-                width: 62,
-                height: 6,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: AppColors.grey,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 20,
-                right: 20,
-                top: 34,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Filter",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        ?.copyWith(fontWeight: FontWeight.w700),
-                  ),
-                  Text(
-                    "Hapus",
-                    style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                          color: AppColors.red,
-                          fontWeight: FontWeight.w700,
-                        ),
-                  ),
-                ],
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: 16,
-              ),
-              child: Divider(
-                thickness: 2,
-                height: 2,
-                color: AppColors.lightGrey,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
-              child: Text(
-                "Kisaran Harga",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1
-                    ?.copyWith(fontWeight: FontWeight.w700),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Minimal",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2
-                            ?.copyWith(color: AppColors.grey),
-                      ),
-                      const SizedBox(
-                        height: 7,
-                      ),
-                      SizedBox(
-                        width: 162,
-                        child: OutlinedTextField(
-                          keyboardType: TextInputType.number,
-                          initialValue: "Rp0",
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r"[0-9]")),
-                            CurrencyTextInputFormatter(
-                              locale: "id",
-                              decimalDigits: 0,
-                              symbol: "Rp",
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Maximal",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2
-                            ?.copyWith(color: AppColors.grey),
-                      ),
-                      const SizedBox(
-                        height: 7,
-                      ),
-                      SizedBox(
-                        width: 162,
-                        child: OutlinedTextField(
-                          keyboardType: TextInputType.number,
-                          initialValue: "Rp250000",
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r"[0-9]")),
-                            CurrencyTextInputFormatter(
-                              locale: "id",
-                              decimalDigits: 0,
-                              symbol: "Rp",
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            StatefulBuilder(
-              builder: (context, setState) {
-                return Slider.adaptive(
-                  value: _sliderValue,
-                  max: 10,
-                  activeColor: AppColors.red,
-                  inactiveColor: AppColors.lightGrey,
-                  onChanged: ((value) {
-                    setState(() {
-                      _sliderValue = value.roundToDouble();
-                    });
-                  }),
-                );
-              },
-            ),
-          ],
-        );
+        return const FilterBottomSheet();
       },
     );
   }

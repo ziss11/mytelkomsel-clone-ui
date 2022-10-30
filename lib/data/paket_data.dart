@@ -135,4 +135,22 @@ abstract class PaketData {
       description: "Combo OMG!",
     ),
   ];
+
+  static const priceRangeList = [
+    "0 - 10rb",
+    "10rb - 50rb",
+    "100rb - 100rb",
+    "100rb - 500rb"
+  ];
+
+  static const kategoriList = [
+    "Combo OMG!",
+    "Bebas Akses",
+    "iPhone Plan",
+    "Sahur Internet"
+  ];
+
+  static const masaAktifList = [30, 7, 1];
+
+  static const penawaranList = ["Diskon", "#dirumahaja", "Cashback", "POIN"];
 }
