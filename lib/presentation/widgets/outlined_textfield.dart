@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
-class OutlineTextField extends StatelessWidget {
-  final String hint;
+class OutlinedTextField extends StatelessWidget {
+  final String? initialValue;
+  final String? hint;
 
-  const OutlineTextField({super.key, required this.hint});
+  const OutlinedTextField({
+    super.key,
+    this.initialValue,
+    this.hint,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue,
       style: Theme.of(context).textTheme.bodyText2?.copyWith(
             fontWeight: FontWeight.w500,
           ),

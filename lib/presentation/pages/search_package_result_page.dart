@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mytelkomsel_clone_ui/data/paket_data.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/search_package_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_textfield.dart';
+import 'package:mytelkomsel_clone_ui/presentation/widgets/outlined_textfield.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/package_card.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
@@ -12,10 +13,7 @@ class SearchPackageResultPage extends StatefulWidget {
 
   final String query;
 
-  const SearchPackageResultPage({
-    super.key,
-    required this.query,
-  });
+  const SearchPackageResultPage({super.key, required this.query});
 
   @override
   State<SearchPackageResultPage> createState() =>
@@ -71,34 +69,37 @@ class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
     );
   }
 
-  Widget _optionItem(BuildContext context, ImageProvider icon,
+  Widget _optionItem(BuildContext context, Function() onTap, ImageProvider icon,
       String optionName, Color color) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 8,
-        horizontal: 11,
-      ),
-      decoration: BoxDecoration(
-        color: AppColors.lightGrey,
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Row(
-        children: [
-          ImageIcon(
-            icon,
-            color: color,
-          ),
-          const SizedBox(
-            width: 6,
-          ),
-          Text(
-            optionName,
-            style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: color,
-                ),
-          ),
-        ],
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          vertical: 8,
+          horizontal: 11,
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.lightGrey,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Row(
+          children: [
+            ImageIcon(
+              icon,
+              color: color,
+            ),
+            const SizedBox(
+              width: 6,
+            ),
+            Text(
+              optionName,
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: color,
+                  ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -116,6 +117,7 @@ class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
           children: [
             _optionItem(
               context,
+              _filterBottomSheet,
               const AssetImage("images/ic_filter.png"),
               "Filter",
               AppColors.red,
@@ -125,6 +127,7 @@ class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
             ),
             _optionItem(
               context,
+              () {},
               const AssetImage("images/ic_sort.png"),
               "Urutkan",
               AppColors.black,
@@ -132,6 +135,140 @@ class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
           ],
         ),
       ),
+    );
+  }
+
+  void _filterBottomSheet() {
+    showModalBottomSheet(
+      isDismissible: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(32),
+        ),
+      ),
+      context: context,
+      builder: (context) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                margin: const EdgeInsets.only(top: 8),
+                width: 62,
+                height: 6,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: AppColors.grey,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 34,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Filter",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        ?.copyWith(fontWeight: FontWeight.w700),
+                  ),
+                  Text(
+                    "Hapus",
+                    style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                          color: AppColors.red,
+                          fontWeight: FontWeight.w700,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 16,
+              ),
+              child: Divider(
+                thickness: 2,
+                height: 2,
+                color: AppColors.lightGrey,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              child: Text(
+                "Kisaran Harga",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    ?.copyWith(fontWeight: FontWeight.w700),
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Minimal",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2
+                            ?.copyWith(color: AppColors.grey),
+                      ),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      const SizedBox(
+                        width: 162,
+                        child: OutlinedTextField(
+                          initialValue: "Rp0",
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Maximal",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2
+                            ?.copyWith(color: AppColors.grey),
+                      ),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      const SizedBox(
+                        width: 162,
+                        child: OutlinedTextField(
+                          initialValue: "Rp250.000",
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 

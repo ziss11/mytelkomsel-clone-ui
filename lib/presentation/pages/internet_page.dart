@@ -130,7 +130,6 @@ class _InternetPageState extends State<InternetPage> {
             top: 32,
             left: 16,
             right: 16,
-            bottom: 20,
           ),
           child: Text(
             title,
@@ -141,14 +140,18 @@ class _InternetPageState extends State<InternetPage> {
           ),
         ),
         SizedBox(
-          height: 130,
-          child: ListView.builder(
+          height: 150,
+          child: ListView.separated(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(
               horizontal: 16,
+              vertical: 12,
             ),
             scrollDirection: Axis.horizontal,
             itemCount: paketList.length,
+            separatorBuilder: (context, index) {
+              return const SizedBox(width: 12);
+            },
             itemBuilder: (context, index) {
               return PackageCard(
                 paket: paketList[index],

@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/verification_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/custom_outlined_button.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_button.dart';
-import 'package:mytelkomsel_clone_ui/presentation/widgets/outline_textfield.dart';
+import 'package:mytelkomsel_clone_ui/presentation/widgets/outlined_textfield.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -31,14 +32,11 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 32),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Image.asset(
-                      "images/login-illustration.png",
-                      height: 133,
-                    ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Image.asset(
+                    "images/login-illustration.png",
+                    height: 133,
                   ),
                 ),
                 const SizedBox(
@@ -64,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 5,
                 ),
-                const OutlineTextField(
+                const OutlinedTextField(
                   hint: "Cth, 08129011xxx",
                 ),
                 const SizedBox(

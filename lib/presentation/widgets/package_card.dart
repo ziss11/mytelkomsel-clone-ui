@@ -28,7 +28,7 @@ class PackageCard extends StatelessWidget {
               BoxShadow(
                 color: AppColors.black.withOpacity(.1),
                 blurRadius: 1,
-                blurStyle: BlurStyle.outer,
+                offset: const Offset(1, 1),
                 spreadRadius: 1,
               ),
             ],

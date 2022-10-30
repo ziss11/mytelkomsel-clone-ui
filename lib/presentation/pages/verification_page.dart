@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/main_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_button.dart';
-import 'package:mytelkomsel_clone_ui/presentation/widgets/outline_textfield.dart';
+import 'package:mytelkomsel_clone_ui/presentation/widgets/outlined_textfield.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
 class VerificationPage extends StatelessWidget {
@@ -68,7 +68,7 @@ class VerificationPage extends StatelessWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                const OutlineTextField(
+                const OutlinedTextField(
                   hint: "Cth. q5TsgH***",
                 ),
                 const SizedBox(
