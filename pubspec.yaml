@@ -30,6 +30,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.2
+  currency_text_input_formatter: ^2.1.7
   equatable: ^2.0.5
   flutter:
     sdk: flutter
@@ -41,6 +42,9 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+
+dependency_overrides:
+  intl: ^0.17.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

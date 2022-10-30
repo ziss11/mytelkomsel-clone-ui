@@ -1,4 +1,6 @@
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mytelkomsel_clone_ui/data/paket_data.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/search_package_page.dart';
@@ -21,6 +23,8 @@ class SearchPackageResultPage extends StatefulWidget {
 }
 
 class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
+  double _sliderValue = 0;
+
   final _focusNode = FocusNode();
   late TextEditingController _searchController;
 
@@ -211,13 +215,8 @@ class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
                     ?.copyWith(fontWeight: FontWeight.w700),
               ),
             ),
-            const SizedBox(
-              height: 16,
-            ),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -234,10 +233,19 @@ class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
                       const SizedBox(
                         height: 7,
                       ),
-                      const SizedBox(
+                      SizedBox(
                         width: 162,
                         child: OutlinedTextField(
+                          keyboardType: TextInputType.number,
                           initialValue: "Rp0",
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r"[0-9]")),
+                            CurrencyTextInputFormatter(
+                              locale: "id",
+                              decimalDigits: 0,
+                              symbol: "Rp",
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -255,16 +263,40 @@ class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
                       const SizedBox(
                         height: 7,
                       ),
-                      const SizedBox(
+                      SizedBox(
                         width: 162,
                         child: OutlinedTextField(
-                          initialValue: "Rp250.000",
+                          keyboardType: TextInputType.number,
+                          initialValue: "Rp250000",
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r"[0-9]")),
+                            CurrencyTextInputFormatter(
+                              locale: "id",
+                              decimalDigits: 0,
+                              symbol: "Rp",
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
+            ),
+            StatefulBuilder(
+              builder: (context, setState) {
+                return Slider.adaptive(
+                  value: _sliderValue,
+                  max: 10,
+                  activeColor: AppColors.red,
+                  inactiveColor: AppColors.lightGrey,
+                  onChanged: ((value) {
+                    setState(() {
+                      _sliderValue = value.roundToDouble();
+                    });
+                  }),
+                );
+              },
             ),
           ],
         );

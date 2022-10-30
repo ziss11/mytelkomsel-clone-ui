@@ -93,7 +93,12 @@ class _SearchPackagePageState extends State<SearchPackagePage> {
   Widget _searchHistoryItem(int id, String text) {
     return InkWell(
       borderRadius: BorderRadius.circular(4),
-      onTap: () {},
+      onTap: () {
+        context.goNamed(
+          SearchPackageResultPage.routeName,
+          params: {"query": text},
+        );
+      },
       child: Row(
         children: [
           const ImageIcon(
@@ -166,7 +171,12 @@ class _SearchPackagePageState extends State<SearchPackagePage> {
   Widget _popularSearchItem(String text) {
     return InkWell(
       borderRadius: BorderRadius.circular(50),
-      onTap: () {},
+      onTap: () {
+        context.goNamed(
+          SearchPackageResultPage.routeName,
+          params: {"query": text},
+        );
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: 12,
