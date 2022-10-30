@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mytelkomsel_clone_ui/data/paket_data.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/search_package_page.dart';
@@ -142,15 +141,15 @@ class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
   void _filterBottomSheet() {
     showModalBottomSheet(
       isDismissible: true,
+      enableDrag: true,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => const FilterBottomSheet(),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(32),
         ),
       ),
-      context: context,
-      builder: (context) {
-        return const FilterBottomSheet();
-      },
     );
   }
 
