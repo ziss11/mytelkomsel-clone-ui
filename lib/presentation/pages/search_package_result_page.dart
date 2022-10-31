@@ -107,12 +107,13 @@ class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
 
   PreferredSize _searchOption(BuildContext context) {
     return PreferredSize(
-      preferredSize: const Size.fromHeight(38),
+      preferredSize: const Size.fromHeight(65),
       child: Padding(
         padding: const EdgeInsets.only(
           left: 16,
           right: 16,
           top: 12,
+          bottom: 12,
         ),
         child: Row(
           children: [
@@ -167,9 +168,10 @@ class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
 
   Widget _searchResult() {
     return ListView.separated(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 20,
+      padding: const EdgeInsets.only(
+        left: 16,
+        right: 16,
+        bottom: 20,
       ),
       physics: const BouncingScrollPhysics(),
       itemCount: PaketData.searchResultList.length,

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:mytelkomsel_clone_ui/data/model/paket_model.dart';
+import 'package:mytelkomsel_clone_ui/presentation/pages/payment_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_button.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_textfield.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
 class PackageDetail extends StatelessWidget {
-  static const path = "package-detail";
+  static const path = "/package-detail";
   static const routeName = "package-detail-page";
 
   final PaketModel paket;
@@ -18,7 +20,7 @@ class PackageDetail extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.lightGrey,
       appBar: _appBar(),
-      bottomNavigationBar: _bottomAppaBar(),
+      bottomNavigationBar: _bottomAppaBar(context),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -52,7 +54,7 @@ class PackageDetail extends StatelessWidget {
     );
   }
 
-  Widget _bottomAppaBar() {
+  Widget _bottomAppaBar(BuildContext context) {
     return BottomAppBar(
       color: AppColors.white,
       child: Padding(
@@ -62,7 +64,12 @@ class PackageDetail extends StatelessWidget {
         ),
         child: FilledButton(
           text: "BELI SEKARANG",
-          onPressed: () {},
+          onPressed: () {
+            context.pushNamed(
+              PaymentPage.routeName,
+              extra: paket,
+            );
+          },
         ),
       ),
     );
