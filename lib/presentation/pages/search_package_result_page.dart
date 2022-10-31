@@ -5,6 +5,7 @@ import 'package:mytelkomsel_clone_ui/presentation/pages/search_package_page.dart
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_textfield.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filter_bottom_sheet.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/package_card.dart';
+import 'package:mytelkomsel_clone_ui/presentation/widgets/sort_bottom_sheet.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
 class SearchPackageResultPage extends StatefulWidget {
@@ -127,7 +128,7 @@ class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
             ),
             _optionItem(
               context,
-              () {},
+              _sortBottomSheet,
               const AssetImage("images/ic_sort.png"),
               "Urutkan",
               AppColors.black,
@@ -141,10 +142,21 @@ class _SearchPackageResultPageState extends State<SearchPackageResultPage> {
   void _filterBottomSheet() {
     showModalBottomSheet(
       isDismissible: true,
-      enableDrag: true,
       isScrollControlled: true,
       context: context,
       builder: (context) => const FilterBottomSheet(),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(32),
+        ),
+      ),
+    );
+  }
+
+  void _sortBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => const SortBottomSheet(),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(32),
