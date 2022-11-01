@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:mytelkomsel_clone_ui/data/model/paket_model.dart';
 import 'package:mytelkomsel_clone_ui/data/payment_data.dart';
+import 'package:mytelkomsel_clone_ui/presentation/pages/payment_success_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_button.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
@@ -84,11 +86,14 @@ class _PaymentPageState extends State<PaymentPage> {
             ],
           ),
           const SizedBox(
-            height: 5,
+            height: 8,
           ),
           FilledButton(
             text: "KONFIRMASI BANYAR",
-            onPressed: () {},
+            onPressed: () => context.pushNamed(
+              PaymentSuccessPage.routeName,
+              extra: widget.paket,
+            ),
           ),
         ],
       ),
@@ -274,10 +279,11 @@ class _PaymentPageState extends State<PaymentPage> {
           itemBuilder: ((context, index) {
             final paymentData = PaymentData.eWallet[index];
             return _paymentItem(
-              isSelected: _radioIndex == index + 2,
+              isSelected:
+                  _radioIndex == index + PaymentData.activePaymentList.length,
               onTap: () {
                 setState(() {
-                  _radioIndex = index + 2;
+                  _radioIndex = index + PaymentData.activePaymentList.length;
                 });
               },
               title: paymentData.name,

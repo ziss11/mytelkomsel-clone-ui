@@ -3,13 +3,13 @@ import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
   final String text;
-  final AssetImage icon;
+  final AssetImage? icon;
   final Color color;
 
   const CustomOutlinedButton({
     super.key,
     required this.text,
-    required this.icon,
+    this.icon,
     this.color = AppColors.black,
   });
 
@@ -32,14 +32,17 @@ class CustomOutlinedButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ImageIcon(
-              icon,
-              color: color,
-            ),
+            icon != null
+                ? ImageIcon(
+                    icon,
+                    color: color,
+                  )
+                : const SizedBox(),
             Text(
               text,
               style: Theme.of(context).textTheme.button?.copyWith(
                     color: color,
+                    fontSize: 14,
                   ),
             ),
           ],
