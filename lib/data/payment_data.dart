@@ -13,4 +13,19 @@ abstract class PaymentData {
       image: "images/ic_linkaja.png",
     ),
   ];
+
+  static const eWallet = [
+    PaymentModel(
+      name: "Gopay",
+      image: "images/ic_gopay.png",
+    ),
+    PaymentModel(
+      name: "OVO",
+      image: "images/ic_ovo.png",
+    ),
+    PaymentModel(
+      name: "LinkAja",
+      image: "images/ic_linkaja.png",
+    ),
+  ];
 }

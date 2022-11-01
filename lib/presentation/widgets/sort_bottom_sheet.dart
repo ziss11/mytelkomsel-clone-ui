@@ -50,6 +50,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
           ),
           ListView.builder(
             shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: optionList.length,
             itemBuilder: (context, index) {
               return _sortOption(
@@ -107,6 +108,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                 ? const Icon(
                     Icons.check,
                     color: AppColors.red,
+                    size: 18,
                   )
                 : const SizedBox(),
           ],

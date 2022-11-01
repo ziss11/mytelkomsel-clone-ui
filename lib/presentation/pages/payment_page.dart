@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mytelkomsel_clone_ui/data/model/paket_model.dart';
 import 'package:mytelkomsel_clone_ui/data/payment_data.dart';
+import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_button.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -22,7 +23,9 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       appBar: _appBar(),
+      bottomNavigationBar: _bottomAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -46,6 +49,49 @@ class _PaymentPageState extends State<PaymentPage> {
             letterSpacing: 0,
           ),
       centerTitle: true,
+    );
+  }
+
+  Widget _bottomAppBar() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 9,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Total Pembayaran",
+                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+              ),
+              Text(
+                NumberFormat.currency(
+                  locale: "id",
+                  decimalDigits: 0,
+                  symbol: "Rp",
+                ).format(widget.paket.price),
+                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.red,
+                    ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          FilledButton(
+            text: "KONFIRMASI BANYAR",
+            onPressed: () {},
+          ),
+        ],
+      ),
     );
   }
 
@@ -152,47 +198,94 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 
   Widget _paymentMethod() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+          ),
+          child: Text(
             "Pembayaran di MyTelkomsel",
             style: Theme.of(context)
                 .textTheme
                 .bodyText1
                 ?.copyWith(fontWeight: FontWeight.w700),
           ),
-          const SizedBox(
-            height: 18,
+        ),
+        const SizedBox(
+          height: 18,
+        ),
+        ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: PaymentData.activePaymentList.length,
-            itemBuilder: ((context, index) {
-              final paymentData = PaymentData.activePaymentList[index];
-              return _paymentItem(
-                isSelected: _radioIndex == index,
-                onTap: () {
-                  setState(() {
-                    _radioIndex = index;
-                  });
-                },
-                title: paymentData.name,
-                subtitle: NumberFormat.currency(
-                  locale: "id",
-                  decimalDigits: 0,
-                  symbol: "Rp",
-                ).format(paymentData.value),
-                leading: Image.asset(paymentData.image),
-              );
-            }),
+          itemCount: PaymentData.activePaymentList.length,
+          itemBuilder: ((context, index) {
+            final paymentData = PaymentData.activePaymentList[index];
+            return _paymentItem(
+              isSelected: _radioIndex == index,
+              onTap: () {
+                setState(() {
+                  _radioIndex = index;
+                });
+              },
+              title: paymentData.name,
+              subtitle: NumberFormat.currency(
+                locale: "id",
+                decimalDigits: 0,
+                symbol: "Rp",
+              ).format(paymentData.value),
+              leading: Image.asset(paymentData.image),
+            );
+          }),
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 20,
           ),
-        ],
-      ),
+          child: Divider(
+            color: AppColors.lightGrey,
+            thickness: 8,
+            height: 8,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+          ),
+          child: Text(
+            "E-Wallet",
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.copyWith(fontWeight: FontWeight.w700),
+          ),
+        ),
+        ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+          ),
+          itemCount: PaymentData.eWallet.length,
+          itemBuilder: ((context, index) {
+            final paymentData = PaymentData.eWallet[index];
+            return _paymentItem(
+              isSelected: _radioIndex == index + 2,
+              onTap: () {
+                setState(() {
+                  _radioIndex = index + 2;
+                });
+              },
+              title: paymentData.name,
+              leading: Image.asset(paymentData.image),
+            );
+          }),
+        ),
+      ],
     );
   }
 }

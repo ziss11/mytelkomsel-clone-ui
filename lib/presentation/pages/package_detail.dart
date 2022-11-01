@@ -3,11 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:mytelkomsel_clone_ui/data/model/paket_model.dart';
 import 'package:mytelkomsel_clone_ui/presentation/pages/payment_page.dart';
+import 'package:mytelkomsel_clone_ui/presentation/pages/search_package_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_button.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_textfield.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
-class PackageDetail extends StatelessWidget {
+class PackageDetail extends StatefulWidget {
   static const path = "/package-detail";
   static const routeName = "package-detail-page";
 
@@ -16,21 +17,42 @@ class PackageDetail extends StatelessWidget {
   const PackageDetail({super.key, required this.paket});
 
   @override
+  State<PackageDetail> createState() => _PackageDetailState();
+}
+
+class _PackageDetailState extends State<PackageDetail> {
+  final _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        context.pushNamed(
+          SearchPackagePage.routeName,
+          extra: "",
+        );
+        _focusNode.unfocus();
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.lightGrey,
       appBar: _appBar(),
-      bottomNavigationBar: _bottomAppaBar(context),
+      bottomNavigationBar: _bottomAppaBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              _header(context),
-              _masaAktif(context),
-              _rincianPaket(context),
-              _deskripsiPaket(context),
-              _syaratKetentuan(context),
+              _header(),
+              _masaAktif(),
+              _rincianPaket(),
+              _deskripsiPaket(),
+              _syaratKetentuan(),
             ],
           ),
         ),
@@ -40,7 +62,9 @@ class PackageDetail extends StatelessWidget {
 
   AppBar _appBar() {
     return AppBar(
-      title: const FilledTextField(),
+      title: FilledTextField(
+        focusNode: _focusNode,
+      ),
       leadingWidth: 38,
       titleSpacing: 0,
       actions: [
@@ -54,7 +78,7 @@ class PackageDetail extends StatelessWidget {
     );
   }
 
-  Widget _bottomAppaBar(BuildContext context) {
+  Widget _bottomAppaBar() {
     return BottomAppBar(
       color: AppColors.white,
       child: Padding(
@@ -67,7 +91,7 @@ class PackageDetail extends StatelessWidget {
           onPressed: () {
             context.pushNamed(
               PaymentPage.routeName,
-              extra: paket,
+              extra: widget.paket,
             );
           },
         ),
@@ -75,7 +99,7 @@ class PackageDetail extends StatelessWidget {
     );
   }
 
-  Widget _header(BuildContext context) {
+  Widget _header() {
     return Container(
       color: AppColors.white,
       padding: const EdgeInsets.symmetric(
@@ -93,7 +117,7 @@ class PackageDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    paket.description,
+                    widget.paket.description,
                     style: Theme.of(context)
                         .textTheme
                         .bodyText2
@@ -103,7 +127,7 @@ class PackageDetail extends StatelessWidget {
                     height: 14,
                   ),
                   Text(
-                    "${paket.data} ${paket.unit}",
+                    "${widget.paket.data} ${widget.paket.unit}",
                     style: Theme.of(context).textTheme.headline4?.copyWith(
                           fontWeight: FontWeight.w700,
                           color: AppColors.black,
@@ -126,14 +150,14 @@ class PackageDetail extends StatelessWidget {
           const SizedBox(
             height: 32,
           ),
-          paket.priceBeforeDisc != null
+          widget.paket.priceBeforeDisc != null
               ? Text(
                   NumberFormat.currency(
                     locale: "id",
                     symbol: "Rp",
                     decimalDigits: 0,
                   ).format(
-                    paket.priceBeforeDisc,
+                    widget.paket.priceBeforeDisc,
                   ),
                   style: Theme.of(context).textTheme.bodyText2?.copyWith(
                         color: AppColors.greyDark,
@@ -142,15 +166,15 @@ class PackageDetail extends StatelessWidget {
                 )
               : const SizedBox(),
           Text(
-            paket.price is int
+            widget.paket.price is int
                 ? NumberFormat.currency(
                     locale: "id",
                     symbol: "Rp",
                     decimalDigits: 0,
                   ).format(
-                    paket.price,
+                    widget.paket.price,
                   )
-                : paket.price.toString().toUpperCase(),
+                : widget.paket.price.toString().toUpperCase(),
             style: Theme.of(context).textTheme.headline5?.copyWith(
                   color: AppColors.red,
                   fontWeight: FontWeight.w700,
@@ -161,7 +185,7 @@ class PackageDetail extends StatelessWidget {
     );
   }
 
-  Widget _masaAktif(BuildContext context) {
+  Widget _masaAktif() {
     return Container(
       color: AppColors.white,
       margin: const EdgeInsets.symmetric(
@@ -202,7 +226,7 @@ class PackageDetail extends StatelessWidget {
                   width: 4,
                 ),
                 Text(
-                  "${paket.numOfDay} ${paket.dayUnit.toUpperCase()}",
+                  "${widget.paket.numOfDay} ${widget.paket.dayUnit.toUpperCase()}",
                   style: Theme.of(context).textTheme.bodyText2?.copyWith(
                         fontWeight: FontWeight.w700,
                         color: AppColors.red,
@@ -216,8 +240,7 @@ class PackageDetail extends StatelessWidget {
     );
   }
 
-  Widget _rincianItem(
-      BuildContext context, String label, dynamic data, String unit) {
+  Widget _rincianItem(String label, dynamic data, String unit) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -236,7 +259,7 @@ class PackageDetail extends StatelessWidget {
     );
   }
 
-  Widget _rincianPaket(BuildContext context) {
+  Widget _rincianPaket() {
     return Container(
       color: AppColors.white,
       margin: const EdgeInsets.only(bottom: 8),
@@ -260,10 +283,10 @@ class PackageDetail extends StatelessWidget {
           Wrap(
             runSpacing: 8,
             children: [
-              _rincianItem(context, "Internet", paket.data, paket.unit),
-              _rincianItem(context, "OMG!", 2, "gb"),
-              _rincianItem(context, "SMS Tsel", 60, "sms"),
-              _rincianItem(context, "Voice Tsel", 100, "mins"),
+              _rincianItem("Internet", widget.paket.data, widget.paket.unit),
+              _rincianItem("OMG!", 2, "gb"),
+              _rincianItem("SMS Tsel", 60, "sms"),
+              _rincianItem("Voice Tsel", 100, "mins"),
             ],
           ),
         ],
@@ -271,7 +294,7 @@ class PackageDetail extends StatelessWidget {
     );
   }
 
-  Widget _deskripsiItem(BuildContext context, String description) {
+  Widget _deskripsiItem(String description) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -294,7 +317,7 @@ class PackageDetail extends StatelessWidget {
     );
   }
 
-  Widget _deskripsiPaket(BuildContext context) {
+  Widget _deskripsiPaket() {
     return Container(
       color: AppColors.white,
       margin: const EdgeInsets.only(bottom: 8),
@@ -329,19 +352,15 @@ class PackageDetail extends StatelessWidget {
             runSpacing: 8,
             children: [
               _deskripsiItem(
-                context,
                 "Kuota Internet dengan akses di semua jaringan (2G/3G/4G).",
               ),
               _deskripsiItem(
-                context,
                 "Kuota Nelpon ke Sesama Telkomsel",
               ),
               _deskripsiItem(
-                context,
                 "Kuota 2 GB OMG! untuk akses Youtube, Facebook, Instagram, MAXstream, Viu, iFlix, Klik Film, Bein Sport, dan Nickelodeon Play berlaku 30 hari.",
               ),
               _deskripsiItem(
-                context,
                 "Termasuk berlangganan 30 hari.",
               ),
             ],
@@ -351,8 +370,7 @@ class PackageDetail extends StatelessWidget {
     );
   }
 
-  Widget _syaratKetentuanItem(
-      BuildContext context, int number, String description) {
+  Widget _syaratKetentuanItem(int number, String description) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -373,7 +391,7 @@ class PackageDetail extends StatelessWidget {
     );
   }
 
-  Widget _syaratKetentuan(BuildContext context) {
+  Widget _syaratKetentuan() {
     return Container(
       color: AppColors.white,
       margin: const EdgeInsets.only(bottom: 8),
@@ -398,17 +416,14 @@ class PackageDetail extends StatelessWidget {
             runSpacing: 8,
             children: [
               _syaratKetentuanItem(
-                context,
                 1,
                 "Paket berlaku hanya untuk pemakaian dalam negeri (Tidak berlaku untuk pemakaian luar negeri).",
               ),
               _syaratKetentuanItem(
-                context,
                 2,
                 "Setelah melewati volume yang disediakan, pelanggan akan dikenakan tarif normal.",
               ),
               _syaratKetentuanItem(
-                context,
                 3,
                 "Kuota internet lokal hanya dapat digunakan di lokasi pelanggan melakukan aktivasi paket.",
               ),
