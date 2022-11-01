@@ -10,6 +10,8 @@ class SortBottomSheet extends StatefulWidget {
 }
 
 class _SortBottomSheetState extends State<SortBottomSheet> {
+  int _indexSelected = 0;
+
   @override
   Widget build(BuildContext context) {
     final optionList = [
@@ -46,9 +48,21 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                   ?.copyWith(fontWeight: FontWeight.w700),
             ),
           ),
-          ...optionList.map((text) {
-            return _sortOption(text);
-          }).toList(),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: optionList.length,
+            itemBuilder: (context, index) {
+              return _sortOption(
+                isSelected: _indexSelected == index,
+                text: optionList[index],
+                onTap: () {
+                  setState(() {
+                    _indexSelected = index;
+                  });
+                },
+              );
+            },
+          ),
           Padding(
             padding: const EdgeInsets.all(20),
             child: FilledButton(
@@ -61,27 +75,42 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
     );
   }
 
-  Widget _sortOption(String text) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        vertical: 12,
-        horizontal: 20,
-      ),
-      decoration: const BoxDecoration(
-        border: Border.symmetric(
-          horizontal: BorderSide(
-            color: AppColors.lightGrey,
-            width: 1.5,
+  Widget _sortOption(
+      {required String text, Function()? onTap, bool isSelected = false}) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(
+          vertical: 12,
+          horizontal: 20,
+        ),
+        decoration: const BoxDecoration(
+          border: Border.symmetric(
+            horizontal: BorderSide(
+              color: AppColors.lightGrey,
+              width: 1.5,
+            ),
           ),
         ),
-      ),
-      child: Text(
-        text,
-        style: Theme.of(context)
-            .textTheme
-            .bodyText2
-            ?.copyWith(fontWeight: FontWeight.w500),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              text,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText2
+                  ?.copyWith(fontWeight: FontWeight.w500),
+            ),
+            isSelected
+                ? const Icon(
+                    Icons.check,
+                    color: AppColors.red,
+                  )
+                : const SizedBox(),
+          ],
+        ),
       ),
     );
   }
