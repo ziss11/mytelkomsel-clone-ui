@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mytelkomsel_clone_ui/data/model/paket_model.dart';
+import 'package:mytelkomsel_clone_ui/presentation/pages/main_page.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/custom_outlined_button.dart';
 import 'package:mytelkomsel_clone_ui/presentation/widgets/filled_button.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
@@ -141,7 +143,9 @@ class _PaymentSuccessPageState extends State<PaymentSuccessPage> {
                 ),
                 child: FilledButton(
                   text: "KEMBALI KE BERANDA",
-                  onPressed: () {},
+                  onPressed: () => context.goNamed(
+                    MainPage.routeName,
+                  ),
                 ),
               ),
               const Padding(
