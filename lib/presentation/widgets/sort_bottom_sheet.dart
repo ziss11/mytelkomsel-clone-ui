@@ -66,7 +66,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
           ),
           Padding(
             padding: const EdgeInsets.all(20),
-            child: FilledButton(
+            child: MyFilledButton(
               text: "SIMPAN",
               onPressed: () {},
             ),

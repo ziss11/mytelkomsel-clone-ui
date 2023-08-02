@@ -86,7 +86,7 @@ class _PackageDetailState extends State<PackageDetail> {
           horizontal: 16,
           vertical: 9,
         ),
-        child: FilledButton(
+        child: MyFilledButton(
           text: "BELI SEKARANG",
           onPressed: () {
             context.pushNamed(

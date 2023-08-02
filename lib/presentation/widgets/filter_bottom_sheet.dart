@@ -304,7 +304,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
           ),
           Padding(
             padding: const EdgeInsets.all(20),
-            child: FilledButton(
+            child: MyFilledButton(
               text: "PASANG FILTER",
               onPressed: () {},
             ),

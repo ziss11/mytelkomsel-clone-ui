@@ -141,7 +141,7 @@ class _PaymentSuccessPageState extends State<PaymentSuccessPage> {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
                 ),
-                child: FilledButton(
+                child: MyFilledButton(
                   text: "KEMBALI KE BERANDA",
                   onPressed: () => context.goNamed(
                     MainPage.routeName,

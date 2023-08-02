@@ -88,7 +88,7 @@ class _PaymentPageState extends State<PaymentPage> {
           const SizedBox(
             height: 8,
           ),
-          FilledButton(
+          MyFilledButton(
             text: "KONFIRMASI BANYAR",
             onPressed: () => context.pushNamed(
               PaymentSuccessPage.routeName,

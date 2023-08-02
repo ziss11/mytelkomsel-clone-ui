@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mytelkomsel_clone_ui/utilities/colors.dart';
 
-class FilledButton extends StatelessWidget {
+class MyFilledButton extends StatelessWidget {
   final String text;
   final Function() onPressed;
   final double fontSize;
@@ -10,7 +10,7 @@ class FilledButton extends StatelessWidget {
   final double width;
   final double height;
 
-  const FilledButton({
+  const MyFilledButton({
     super.key,
     required this.text,
     required this.onPressed,

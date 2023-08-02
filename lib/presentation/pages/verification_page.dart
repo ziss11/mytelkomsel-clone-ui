@@ -96,7 +96,7 @@ class VerificationPage extends StatelessWidget {
                 const SizedBox(
                   height: 32,
                 ),
-                FilledButton(
+                MyFilledButton(
                   text: "Lanjut".toUpperCase(),
                   onPressed: () => context.goNamed(MainPage.routeName),
                 ),

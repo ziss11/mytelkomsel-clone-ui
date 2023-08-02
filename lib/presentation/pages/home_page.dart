@@ -156,7 +156,7 @@ class HomePage extends StatelessWidget {
                           color: AppColors.white,
                         ),
                   ),
-                  FilledButton(
+                  MyFilledButton(
                     text: "Isi Pulsa",
                     fontSize: 12,
                     textColor: AppColors.black,
